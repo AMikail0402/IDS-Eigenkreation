@@ -64,7 +64,7 @@ public class IdsOnline
             long startTime = System.currentTimeMillis();
         long elapsedTime = 0L;
             try {
-            int maxPackets = (int)(Math.pow(10, 6));
+            int maxPackets = 300;
             handle.loop(maxPackets, listener);
              } catch (InterruptedException e) {
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class IdsOnline
             handle.close();
             elapsedTime = new Date().getTime()-startTime;
             System.out.println("Das Auslesen hat "+elapsedTime+"ms lang gedauert");
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(2);
             Main.userLoop(1);
             }
         

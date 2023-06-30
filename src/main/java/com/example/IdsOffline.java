@@ -60,7 +60,7 @@ public static void offlineAnalysis() throws PcapNativeException, NotOpenExceptio
             handle.close();
             elapsedTime = new Date().getTime()-startTime;
             System.out.println("Das Auslesen hat "+elapsedTime+"ms lang gedauert");
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(2);
             Main.userLoop(1);
 }
 

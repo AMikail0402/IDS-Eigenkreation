@@ -65,7 +65,7 @@ public static void analyze() throws PcapNativeException, NotOpenException, Inter
            handle.close();
             elapsedTime = new Date().getTime()-startTime;
             System.out.println("Das Analysieren hat "+elapsedTime+"ms lang gedauert");
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(2);
             Main.userLoop(1);
   
 }
