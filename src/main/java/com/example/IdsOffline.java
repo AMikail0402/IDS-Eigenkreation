@@ -1,6 +1,6 @@
 package com.example;
 import java.util.Date;
-
+import java.util.concurrent.TimeUnit;
 
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PacketListener;
@@ -13,7 +13,7 @@ import org.pcap4j.packet.Packet;
 
 public class IdsOffline{
 
-public static void main(String[] args) throws PcapNativeException, NotOpenException {
+public static void offlineAnalysis() throws PcapNativeException, NotOpenException, InterruptedException {
     PcapHandle handle;
     try {
         handle = Pcaps.openOffline("out.pcap", TimestampPrecision.NANO);
@@ -50,16 +50,18 @@ public static void main(String[] args) throws PcapNativeException, NotOpenExcept
         };
        long startTime = System.currentTimeMillis();
        long elapsedTime = 0L;
-        try {
-            int maxPackets = 200;
+       try {
+            int maxPackets = (int)(Math.pow(10, 6));
             handle.loop(maxPackets, listener);
              } catch (InterruptedException e) {
             e.printStackTrace();
                 }
-
+                
             handle.close();
             elapsedTime = new Date().getTime()-startTime;
             System.out.println("Das Auslesen hat "+elapsedTime+"ms lang gedauert");
+            TimeUnit.SECONDS.sleep(5);
+            Main.userLoop(1);
 }
 
 }

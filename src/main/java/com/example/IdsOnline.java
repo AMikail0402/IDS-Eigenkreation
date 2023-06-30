@@ -5,6 +5,8 @@ package com.example;
  */
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PacketListener;
@@ -21,7 +23,7 @@ import org.pcap4j.util.NifSelector;
 public class IdsOnline
 {
 
-       public static void main(String[] args) throws PcapNativeException, NotOpenException
+       public static void onlineAnalysis() throws PcapNativeException, NotOpenException, InterruptedException
     {   
            PcapNetworkInterface device = getNetworkDevice();
             System.out.println("You chose: " + device);
@@ -59,9 +61,10 @@ public class IdsOnline
                 }
             };
 
-
+            long startTime = System.currentTimeMillis();
+        long elapsedTime = 0L;
             try {
-            int maxPackets = 100;
+            int maxPackets = (int)(Math.pow(10, 6));
             handle.loop(maxPackets, listener);
              } catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,7 +74,10 @@ public class IdsOnline
             System.out.println("Packets dropped: " + stats.getNumPacketsDropped());
             System.out.println("Packets dropped by interface: " + stats.getNumPacketsDroppedByIf());
             handle.close();
-
+            elapsedTime = new Date().getTime()-startTime;
+            System.out.println("Das Auslesen hat "+elapsedTime+"ms lang gedauert");
+            TimeUnit.SECONDS.sleep(5);
+            Main.userLoop(1);
             }
         
         static PcapNetworkInterface getNetworkDevice() {

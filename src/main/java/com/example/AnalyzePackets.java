@@ -1,6 +1,8 @@
 package com.example;
 
+import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PacketListener;
@@ -14,7 +16,7 @@ import org.pcap4j.packet.Packet;
 
 public class AnalyzePackets {
 
-public static void main(String[] args) throws PcapNativeException, NotOpenException {
+public static void analyze() throws PcapNativeException, NotOpenException, InterruptedException {
     PcapHandle handle;
 
     try {
@@ -45,15 +47,14 @@ public static void main(String[] args) throws PcapNativeException, NotOpenExcept
      PacketListener listener = new PacketListener() {
             @Override
             public void gotPacket(Packet packet) {
-                 
-           
-                System.out.println(handle2.getTimestamp());
+                System.out.println("Zeitpunkt: "+handle2.getTimestamp());
+                System.out.println("Ursprungs-Adresse: "+IpExtractor.extractDest(packet.toString().substring(33)));
                 System.out.println(packet);
-
               
             }
         };
-     
+        long startTime = System.currentTimeMillis();
+        long elapsedTime = 0L;
         try {
             int maxPackets = 100;
             handle.loop(maxPackets, listener);
@@ -61,7 +62,11 @@ public static void main(String[] args) throws PcapNativeException, NotOpenExcept
             e.printStackTrace();
                 }
 
-            handle.close();
+           handle.close();
+            elapsedTime = new Date().getTime()-startTime;
+            System.out.println("Das Analysieren hat "+elapsedTime+"ms lang gedauert");
+            TimeUnit.SECONDS.sleep(5);
+            Main.userLoop(1);
   
 }
 
