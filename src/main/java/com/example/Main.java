@@ -11,7 +11,7 @@ public class Main {
     }
     public static void userLoop(int num) throws PcapNativeException, NotOpenException, InterruptedException{
         if(num==0){
-    System.out.println("Was wollen sie tun? Online-Filtering: on; Offline-Filtering: off; Auswertung: analysis;Aufhören: quit");}
+    System.out.println("Was wollen sie tun? Online-Filtering: on; Offline-Filtering: off; Auswertung: analysis");}
     if(num==1){
     System.out.println("Was wollen sie jetzt tun? Online-Filtering: on; Offline-Filtering: off; Auswertung: analysis");}
     Scanner myScanner = new Scanner(System.in);
@@ -25,9 +25,5 @@ public class Main {
     else if(answer.equals("analysis")){
         AnalyzePackets.analyze();
     }
-    else if(answer.equals("quit")){
-        return;
     }
     }
-    }
-

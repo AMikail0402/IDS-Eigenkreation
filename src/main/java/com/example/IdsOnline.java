@@ -5,8 +5,6 @@ package com.example;
  */
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PacketListener;
@@ -23,7 +21,7 @@ import org.pcap4j.util.NifSelector;
 public class IdsOnline
 {
 
-       public static void onlineAnalysis() throws PcapNativeException, NotOpenException, InterruptedException
+       public static void onlineAnalysis() throws PcapNativeException, NotOpenException
     {   
            PcapNetworkInterface device = getNetworkDevice();
             System.out.println("You chose: " + device);
@@ -31,7 +29,7 @@ public class IdsOnline
                 System.out.println("No device chosen");
                 System.exit(1);
             }
-           
+
             final PcapHandle handle;
             // Open the Device and get a handle
             int snapshotLength = 65536;
@@ -47,7 +45,7 @@ public class IdsOnline
                     System.out.println(handle.getTimestamp());
                     System.out.println(packet.toString());
                      boolean keyword = RegexSearch.search(packet.toString(), Patterns.SSH.getText());
-                  
+
                      if(keyword == true){
                     // Dump packets to file
                     System.out.println("!!! Anmeldeversuch !!!");
@@ -61,10 +59,9 @@ public class IdsOnline
                 }
             };
 
-            long startTime = System.currentTimeMillis();
-        long elapsedTime = 0L;
+
             try {
-            int maxPackets = 300;
+            int maxPackets = 100;
             handle.loop(maxPackets, listener);
              } catch (InterruptedException e) {
             e.printStackTrace();
@@ -74,12 +71,9 @@ public class IdsOnline
             System.out.println("Packets dropped: " + stats.getNumPacketsDropped());
             System.out.println("Packets dropped by interface: " + stats.getNumPacketsDroppedByIf());
             handle.close();
-            elapsedTime = new Date().getTime()-startTime;
-            System.out.println("Das Auslesen hat "+elapsedTime+"ms lang gedauert");
-            TimeUnit.SECONDS.sleep(2);
-            Main.userLoop(1);
+
             }
-        
+
         static PcapNetworkInterface getNetworkDevice() {
             PcapNetworkInterface device = null;
             try {
@@ -90,5 +84,5 @@ public class IdsOnline
             return device;
         }
 
-    
+
 }
