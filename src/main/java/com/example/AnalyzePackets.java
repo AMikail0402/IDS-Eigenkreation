@@ -43,10 +43,11 @@ public static void analyze() throws PcapNativeException, NotOpenException, Inter
     }
     }
     final PcapHandle handle2 = handle;
-
+    final int counter =0;
      PacketListener listener = new PacketListener() {
             @Override
             public void gotPacket(Packet packet) {
+               
                 System.out.println("Zeitpunkt: "+handle2.getTimestamp());
                 System.out.println("Ursprungs-Adresse: "+IpExtractor.extractDest(packet.toString().substring(33)));
                 System.out.println(packet);
