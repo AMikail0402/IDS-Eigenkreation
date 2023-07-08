@@ -29,7 +29,6 @@ public static void offlineAnalysis() throws PcapNativeException, NotOpenExceptio
 
               //  long packetStartTime = System.currentTimeMillis();
               //  long packetElapsedTime= 0L;
-
                 // Print packet information to screen
                 System.out.println(handle2.getTimestamp());
                 System.out.println(packet);
@@ -58,6 +57,7 @@ public static void offlineAnalysis() throws PcapNativeException, NotOpenExceptio
                 }
 
             handle.close();
+            
             elapsedTime = new Date().getTime()-startTime;
             System.out.println("Das Auslesen hat "+elapsedTime+"ms lang gedauert");
 }
