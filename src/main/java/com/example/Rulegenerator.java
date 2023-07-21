@@ -17,23 +17,48 @@ public class Rulegenerator {
         System.out.println("Das ist die Regel "+rule);
         System.out.println("Das ist die Source-IP"+ ruleGenerator(rule));
         TCP source-ip 192.168.56.1 dest-ip 192.168.178.56.103 source-port any dest-port 22
+
+        Kapitel IP:
+            String totalRule = "";
+
+        String rule = "TCP source-ip any dest-ip 192.168.56.103 source-port any dest-port 22";
+        String srcIp = Rulegenerator.sourceIpPattern(rule);    
+        String dstIp = Rulegenerator.destIpPattern(rule);   
+        
+        totalRule = srcIp + dstIp;
+
+        totalRule = totalRule.toLowerCase();
+
+        System.out.println("GesamtRegel "+totalRule);
+
         */
 
 
     public static void main(String[] args) throws FileNotFoundException{
-    String totalRule = "";
 
-     String rule = "TCP source-ip 192.168.56.1 dest-ip 192.168.56.103 source-port any dest-port 22";
-     String srcIp = Rulegenerator.sourceIpPattern(rule);    
-     String dstIp = Rulegenerator.destIpPattern(rule);   
-     
-     totalRule = srcIp + dstIp;
+    String rule = "TCP source-ip any dest-ip 192.168.56.103 source-port 62410 dest-port 22";
 
-     totalRule = totalRule.toLowerCase();
-
-     System.out.println("GesamtRegel "+totalRule);
-
+     String srcPort = Rulegenerator.sourcePortPattern(rule);
+     System.out.println("Src-Port-Pattern "+srcPort);
     }
+
+
+    public static String sourcePortPattern(String input){
+        String match = RegexSearch.match(input,Patterns.SRCPORT.getText());
+
+        if(match.equals("")){
+        return "(.|\\n)*..";
+        }        
+
+        match = Converter.convertPortToHexRule(match); 
+        if(match.length()>2){
+        String frstHalf= match.substring(0,2);
+        String secHalf = match.substring(2);
+        match = frstHalf+" "+secHalf;
+    }
+        return "(.|\\n)*"+match;
+    }
+
 
     public static String sourceIpPattern(String input){   
 
@@ -42,7 +67,8 @@ public class Rulegenerator {
     if(match.equals("")){
         return "(.|\\n)*..(.|\\n)..(.|\\n)..(.|\\n)..";
     }
-    match = Converter.convertIPtoHexRule(match); 
+    match = Converter.convertIpToHexRule(match); 
+    
      return match;
     }
 
@@ -50,9 +76,9 @@ public class Rulegenerator {
      String match = RegexSearch.match(input,Patterns.DSTIP.getText());
      
      if(match.equals("")){
-        return "(.|\\n)*..(.|\\n)..(.|\\n)..(.|\\n)..";
+        return "(.|\\n)..(.|\\n)..(.|\\n)..(.|\\n)..";
     }
-     match = Converter.convertIPtoHexRule(match); 
+     match = Converter.convertIpToHexRule(match); 
 
 
      return match;

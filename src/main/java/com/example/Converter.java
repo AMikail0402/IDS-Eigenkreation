@@ -7,9 +7,7 @@ import java.util.regex.Pattern;
 public class Converter {
     
 
-   
-
-    public static String convertIPtoHexRule(String ip){
+    public static String convertIpToHexRule(String ip){
         String numPattern = "(\\d{1,3}).(\\d{1,3}).(\\d{1,3}).(\\d{1,3})";
         Pattern pattern = Pattern.compile(numPattern);
         Matcher matcher = pattern.matcher(ip);
@@ -41,10 +39,17 @@ public class Converter {
         //Erstellung des Zusatzes
         String rule = "(.|\\n)*"+firstNum+"(.|\\n)"+secondNum+"(.|\\n)"+thirdNum+"(.|\\n)"+fourthNum;
             //System.out.println(rule.toLowerCase());
-        return rule;
+        return rule.toLowerCase();
     }
             
         return "";
+    }
+
+    public static String convertPortToHexRule(String port){
+        String result = decToHex(port);
+
+        return result.toLowerCase();
+
     }
 
     public static String decToHex(String decNum){
