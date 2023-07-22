@@ -18,13 +18,9 @@ import org.pcap4j.packet.Packet;
 public class AnalyzePackets {
 
 public static void analyze() throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException {
-    PcapHandle handle;
+    PcapHandle handle = null;
 
-    try {
-        handle = Pcaps.openOffline("suspicious_online.pcap", TimestampPrecision.NANO);
-    } catch (PcapNativeException e) {
-        handle = Pcaps.openOffline("suspicious_online.pcap");
-    }
+    
     Scanner myScanner = new Scanner(System.in);
     System.out.println("Offline(off) oder Online(on) Ergebnisse ?");
     String answer = myScanner.nextLine();
