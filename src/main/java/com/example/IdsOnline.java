@@ -31,8 +31,7 @@ public class IdsOnline
             }
 
             final String pattern = Rulegenerator.totalRule(rule);
-            System.out.println(pattern);   
-
+         
             final PcapHandle handle;
             // Open the Device and get a handle
             int snapshotLength = 65536;
