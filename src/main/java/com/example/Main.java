@@ -15,7 +15,6 @@ public class Main {
         File file = new File("rules.conf");
         Scanner scan = new Scanner(file);
          String customRule = scan.nextLine();
-         System.out.println(customRule);
 
     if(num==0){
     System.out.println("Was wollen sie tun? Online-Filtering: on; Offline-Filtering: off; Auswertung: analysis");}
