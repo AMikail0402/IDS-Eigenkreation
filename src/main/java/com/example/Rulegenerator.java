@@ -8,7 +8,7 @@ public class Rulegenerator {
     
  
     public static void main(String[] args) throws FileNotFoundException{
-        String rule = Rulegenerator.totalRule("HTTP source-ip 192.168.168.56 dest-ip 192.168.178.141 source-port any dest-port 80");
+        String rule = Rulegenerator.totalRule("HTTP source-ip 192.168.178.141 dest-ip 192.168.178.141 source-port 62070 dest-port 80");
         System.out.println(rule);
      
     }
@@ -85,7 +85,7 @@ public class Rulegenerator {
         String secHalf = match.substring(2);
         match = frstHalf+" "+secHalf;
     
-        return match;
+        return match+" ";
     }
 
     public static String destPortPattern(String input){

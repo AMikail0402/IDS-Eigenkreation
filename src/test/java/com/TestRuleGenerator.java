@@ -26,38 +26,16 @@ public class TestRuleGenerator {
     static String testHttpRule = "HTTP source-ip 192.168.178.141 dest-ip 192.168.178.141 source-port 62070 dest-port 80";        
 
     public static void main(String[] args) throws FileNotFoundException{
-     File file = new File("rules.conf");
-     Scanner scan = new Scanner(file);
-     String customRule = scan.nextLine();
-
-        testCustomRule(customRule);
 
         testMatching();
     }
-    public static void testCustomRule(String customRule){
-        customRule = Rulegenerator.totalRule(customRule);
-   
-        Pattern pattern = Pattern.compile(customRule);
-        Matcher matcher1 = pattern.matcher(tcpTestPacket);
-        Matcher matcher2 = pattern.matcher(httpTestPacket);
-
-        if(matcher1.find()){
-            System.out.println("Customregel deckt TCP-Testpaket ab\n");
-        }
-        if(matcher2.find()){
-            System.out.println("Customregel deckt HTTP-Testpaket ab\n");
-        }
-        else {
-            System.out.println("Keine valide Regel");
-        }
-
-
-    }
+  
     public static void testMatching(){
 
         System.out.println("///////////////////////// TEST - 1 ///////////////////////////////\n");
         String tcpPattern = Rulegenerator.totalRule(testTcpRule);
         Pattern pattern1 = Pattern.compile(tcpPattern);
+        System.out.println(tcpPattern);
       
         Matcher matcher1 = pattern1.matcher(tcpTestPacket);
        
@@ -73,6 +51,7 @@ public class TestRuleGenerator {
 
         System.out.println("///////////////////////// TEST - 2 ///////////////////////////////\n");
         String httpPattern = Rulegenerator.totalRule(testHttpRule);
+        System.out.println(httpPattern);
         Pattern pattern2 = Pattern.compile(httpPattern);
        
         Matcher matcher2 = pattern2.matcher(httpTestPacket);

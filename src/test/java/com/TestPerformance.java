@@ -24,7 +24,7 @@ public class TestPerformance {
         Scanner scan = new Scanner(file);
          String customRule = scan.nextLine();
          System.out.println(customRule);
-        offlineAnalysis(customRule);
+            offlineAnalysis(customRule);
 
     }
 
@@ -34,9 +34,9 @@ public class TestPerformance {
      System.out.println(pattern);   
     PcapHandle handle;
     try {
-        handle = Pcaps.openOffline("out_HTTP_3.pcap", TimestampPrecision.NANO);
+        handle = Pcaps.openOffline("test.pcap", TimestampPrecision.NANO);
     } catch (PcapNativeException e) {
-        handle = Pcaps.openOffline("out_HTTP_3.pcap");
+        handle = Pcaps.openOffline("test.pcap");
     }
     final PcapHandle handle2 = handle;
     final PcapDumper dumper = handle.dumpOpen("suspicious.pcap");
