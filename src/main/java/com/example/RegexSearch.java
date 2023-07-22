@@ -12,8 +12,10 @@ public class RegexSearch{
         
         Pattern pattern = Pattern.compile(searchPattern);
         Matcher matcher = pattern.matcher(input);
-  
-     
+        
+        if(matcher.find()){
+            return true;
+        }
         
         return false;
     };
