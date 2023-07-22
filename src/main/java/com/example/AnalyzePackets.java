@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +17,7 @@ import org.pcap4j.packet.Packet;
 
 public class AnalyzePackets {
 
-public static void analyze() throws PcapNativeException, NotOpenException, InterruptedException {
+public static void analyze() throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException {
     PcapHandle handle;
 
     try {
@@ -48,7 +49,10 @@ public static void analyze() throws PcapNativeException, NotOpenException, Inter
             @Override
             public void gotPacket(Packet packet) {
                 System.out.println("Zeitpunkt: "+handle2.getTimestamp());
-                System.out.println("Ursprungs-Adresse: "+IpExtractor.extractDest(packet.toString().substring(33)));
+                System.out.println("Ursprungs-Adresse: "+IpExtractor.extractSource(packet.toString().substring(33)));
+                System.out.println("Ziel-Adresse: "+IpExtractor.extractDest(packet.toString().substring(33)));
+                System.out.println("Ursprungsport: "+IpExtractor.extractSrcPort(packet.toString().substring(33)));
+                System.out.println("Zielport: "+IpExtractor.extractDstPort(packet.toString().substring(33)));
                 System.out.println(packet);
               
             }
@@ -56,7 +60,7 @@ public static void analyze() throws PcapNativeException, NotOpenException, Inter
         long startTime = System.currentTimeMillis();
         long elapsedTime = 0L;
         try {
-            int maxPackets = 100;
+            int maxPackets = (int)(Math.pow(10, 5));
             handle.loop(maxPackets, listener);
              } catch (InterruptedException e) {
             e.printStackTrace();

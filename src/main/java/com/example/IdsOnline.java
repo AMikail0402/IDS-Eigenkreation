@@ -21,7 +21,7 @@ import org.pcap4j.util.NifSelector;
 public class IdsOnline
 {
 
-       public static void onlineAnalysis() throws PcapNativeException, NotOpenException
+       public static void onlineAnalysis(String rule) throws PcapNativeException, NotOpenException
     {   
            PcapNetworkInterface device = getNetworkDevice();
             System.out.println("You chose: " + device);
@@ -29,6 +29,9 @@ public class IdsOnline
                 System.out.println("No device chosen");
                 System.exit(1);
             }
+
+            final String pattern = Rulegenerator.totalRule(rule);
+            System.out.println(pattern);   
 
             final PcapHandle handle;
             // Open the Device and get a handle
@@ -44,11 +47,11 @@ public class IdsOnline
                     // Print packet information to screen
                     System.out.println(handle.getTimestamp());
                     System.out.println(packet.toString());
-                     boolean keyword = RegexSearch.search(packet.toString(), Patterns.SSH.getText());
+                    boolean keyword = RegexSearch.search(packet.toString(),pattern);
 
                      if(keyword == true){
                     // Dump packets to file
-                    System.out.println("!!! Anmeldeversuch !!!");
+                    System.out.println("!!! Match !!!");
                     try {
                         dumper.dump(packet, handle.getTimestamp());
                     } catch (NotOpenException e) {
@@ -61,7 +64,7 @@ public class IdsOnline
 
 
             try {
-            int maxPackets = 100;
+            int maxPackets = (int)(Math.pow(10, 5));
             handle.loop(maxPackets, listener);
              } catch (InterruptedException e) {
             e.printStackTrace();

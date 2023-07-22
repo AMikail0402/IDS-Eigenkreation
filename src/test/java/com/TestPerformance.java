@@ -40,14 +40,13 @@ public class TestPerformance {
     }
     final PcapHandle handle2 = handle;
     final PcapDumper dumper = handle.dumpOpen("suspicious.pcap");
-
-
+   
      PacketListener listener = new PacketListener() {
+           
             @Override
             public void gotPacket(Packet packet) {
                
-              //  long packetStartTime = System.currentTimeMillis();
-              //  long packetElapsedTime= 0L;
+            
                 // Print packet information to screen
                 
                 
@@ -57,19 +56,21 @@ public class TestPerformance {
                 // Dump packets to file 
                 System.out.println("!!! Match !!!");
                 System.out.println(handle2.getTimestamp());
-                System.out.println(packet);    
+                System.out.println(packet);
+                 
                     try {
                         dumper.dump(packet, handle2.getTimestamp());
                     } catch (NotOpenException e) {
                         e.printStackTrace();
                     }
+                     
+              
                 }
-                
-               // packetElapsedTime = new Date().getTime()-packetStartTime;
-
-              //  System.out.println("Das Auslesen dieses Pakets hat "+packetElapsedTime+"ms lang gedauert");
+               
+            
             }
         };
+    
        long startTime = System.currentTimeMillis();
        long elapsedTime = 0L;
         try {
@@ -77,12 +78,13 @@ public class TestPerformance {
             handle.loop(maxPackets, listener);
              } catch (InterruptedException e) {
             e.printStackTrace();
-                }
+        }
 
             handle.close();
             
             elapsedTime = new Date().getTime()-startTime;
             System.out.println("Das Auslesen hat "+elapsedTime+"ms lang gedauert");
+            System.out.println();
 }
 
 }

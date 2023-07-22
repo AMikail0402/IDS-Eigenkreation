@@ -52,6 +52,13 @@ public class Converter {
 
     }
 
+    public static String hextoDec(String hex){
+        int sum =0 ;
+        sum = Integer.parseInt(hex,16);
+        String sumString =  Integer.toString(sum);
+        return sumString;
+    }
+
     public static String decToHex(String decNum){
         int dec = Integer.parseInt(decNum);
         int temp;
