@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PcapNativeException;
 
 public class Main {
     public static void main(String[] args) throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException{
+        BasicConfigurator.configure();
+        
         userLoop(0);
     }
     public static void userLoop(int num) throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException{
