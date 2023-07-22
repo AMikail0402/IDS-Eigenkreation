@@ -8,7 +8,8 @@ public class Rulegenerator {
     
  
     public static void main(String[] args) throws FileNotFoundException{
-
+        String rule = Rulegenerator.totalRule("HTTP source-ip 192.168.178.141 dest-ip 192.168.178.141 source-port any dest-port any");
+        System.out.println(rule);
      
     }
 
@@ -48,7 +49,7 @@ public class Rulegenerator {
     public static String modePattern(String mode){
      
         if(mode.equals("TCP")){
-           return "06";
+           return "06(.|\\n){7}";
         }
         if(mode.equals("HTTP")){
             return "(.|\\n)*48(.|\\n)54(.|\\n)54(.|\\n)50(.|\\n)2f(.|\\n)31(.|\\n)2e(.|\\n)31";
@@ -71,7 +72,7 @@ public class Rulegenerator {
         String match = RegexSearch.match(input,Patterns.SRCPORT.getText());
 
         if(match.equals("")){
-        return "(.|\\n)*..";
+        return "(.|\\n){6}";
         }        
 
         match = Converter.convertPortToHexRule(match); 
@@ -84,14 +85,14 @@ public class Rulegenerator {
         String secHalf = match.substring(2);
         match = frstHalf+" "+secHalf;
     
-        return "(.|\\n)*"+match;
+        return match;
     }
 
     public static String destPortPattern(String input){
         String match = RegexSearch.match(input,Patterns.DSTPORT.getText());
 
         if(match.equals("")){
-        return "(.|\\n)*..";
+        return "(.|\\n){6}";
         }        
 
         match = Converter.convertPortToHexRule(match); 
@@ -105,7 +106,7 @@ public class Rulegenerator {
       
         match = frstHalf+" "+secHalf;
     
-        return "(.|\\n)*"+match;
+        return match;
     }
 
     public static String sourceIpPattern(String input){   
@@ -113,23 +114,23 @@ public class Rulegenerator {
     String match = RegexSearch.match(input,Patterns.SRCIP.getText());
   
     if(match.equals("")){
-        return "(.|\\n)*..(.|\\n)..(.|\\n)..(.|\\n)..";
+        return "(.|\\n){12}";
     }
     match = Converter.convertIpToHexRule(match); 
     
-     return match;
+     return match+" ";
     }
 
     public static String destIpPattern(String input){   
      String match = RegexSearch.match(input,Patterns.DSTIP.getText());
      
      if(match.equals("")){
-        return "(.|\\n)..(.|\\n)..(.|\\n)..(.|\\n)..";
+        return "(.|\\n){12}";
     }
      match = Converter.convertIpToHexRule(match); 
 
 
-     return match;
+     return match+" ";
     }
 
     public static String ruleGen(String input){

@@ -19,9 +19,9 @@ public class IdsOffline{
         System.out.println(pattern);   
        PcapHandle handle;
        try {
-           handle = Pcaps.openOffline("out.pcap", TimestampPrecision.NANO);
+           handle = Pcaps.openOffline("test.pcap", TimestampPrecision.NANO);
        } catch (PcapNativeException e) {
-           handle = Pcaps.openOffline("out.pcap");
+           handle = Pcaps.openOffline("test.pcap");
        }
        final PcapHandle handle2 = handle;
        final PcapDumper dumper = handle.dumpOpen("suspicious.pcap");

@@ -37,7 +37,7 @@ public class Converter {
             //System.out.println("Als Hex "+fourthNum);
             
         //Erstellung des Zusatzes
-        String rule = "(.|\\n)*"+firstNum+"(.|\\n)"+secondNum+"(.|\\n)"+thirdNum+"(.|\\n)"+fourthNum;
+        String rule = firstNum+"(.|\\n)"+secondNum+"(.|\\n)"+thirdNum+"(.|\\n)"+fourthNum;
             //System.out.println(rule.toLowerCase());
         return rule.toLowerCase();
     }
