@@ -7,35 +7,13 @@ import java.util.Scanner;
 public class Rulegenerator {
     
  
-
-    
-     /**File file = new File("rules.conf");
-        Scanner scan = new Scanner(file);
-        String rule = scan.nextLine();
-        System.out.println("Das ist die Regel "+rule);
-        System.out.println("Das ist die Source-IP"+ ruleGenerator(rule));
-        TCP source-ip 192.168.56.1 dest-ip 192.168.178.56.103 source-port any dest-port 22
-
-        Kapitel IP:
-            String totalRule = "";
-
-        String rule = "TCP source-ip any dest-ip 192.168.56.103 source-port any dest-port 22";
-        String srcIp = Rulegenerator.sourceIpPattern(rule);    
-        String dstIp = Rulegenerator.destIpPattern(rule);   
-        
-        totalRule = srcIp + dstIp;
-
-        totalRule = totalRule.toLowerCase();
-
-        System.out.println("GesamtRegel "+totalRule);
-
-        */
-
-
     public static void main(String[] args) throws FileNotFoundException{
 
-     String rule = "HTTP source-ip 192.168.178.141 dest-ip 192.168.178.141 source-port any dest-port 80";
-     String mode = Rulegenerator.mode(rule);
+     
+    }
+
+    public static String totalRule(String rule){
+    String mode = Rulegenerator.mode(rule);
  
      String modePattern = Rulegenerator.modePattern(mode);
 
@@ -45,14 +23,26 @@ public class Rulegenerator {
      String srcPort = Rulegenerator.sourcePortPattern(rule);
      String dstPort = Rulegenerator.destPortPattern(rule);
      String totalrule = "";
+
     if(mode.equals("TCP")){
-     totalrule = modePattern+srcIp+dstIp+srcPort+dstPort;
+
+    totalrule = modePattern+srcIp+dstIp+srcPort+dstPort;
+    return totalrule;
+
     }
-    else if(mode.equals("HTTP")){
+
+    else if(mode.equals("HTTP")){    
+
      totalrule = srcIp+dstIp+srcPort+dstPort+modePattern;
+     return totalrule;
+
     }
-     
-     System.out.println(totalrule);
+    
+    else{
+        totalrule= srcIp+dstIp+srcPort+dstPort;
+        return totalrule;
+    }
+   
     }
 
     public static String modePattern(String mode){
