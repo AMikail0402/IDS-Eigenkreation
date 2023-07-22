@@ -8,9 +8,7 @@ public class Rulegenerator {
     
  
 
-    public String mode; 
-
-    public String searchPattern;
+    
      /**File file = new File("rules.conf");
         Scanner scan = new Scanner(file);
         String rule = scan.nextLine();
@@ -36,12 +34,48 @@ public class Rulegenerator {
 
     public static void main(String[] args) throws FileNotFoundException{
 
-    String rule = "TCP source-ip any dest-ip 192.168.56.103 source-port 62410 dest-port 22";
+     String rule = "HTTP source-ip 192.168.178.141 dest-ip 192.168.178.141 source-port any dest-port 80";
+     String mode = Rulegenerator.mode(rule);
+ 
+     String modePattern = Rulegenerator.modePattern(mode);
+
+     String srcIp = Rulegenerator.sourceIpPattern(rule);    
+     String dstIp = Rulegenerator.destIpPattern(rule); 
 
      String srcPort = Rulegenerator.sourcePortPattern(rule);
-     System.out.println("Src-Port-Pattern "+srcPort);
+     String dstPort = Rulegenerator.destPortPattern(rule);
+     String totalrule = "";
+    if(mode.equals("TCP")){
+     totalrule = modePattern+srcIp+dstIp+srcPort+dstPort;
+    }
+    else if(mode.equals("HTTP")){
+     totalrule = srcIp+dstIp+srcPort+dstPort+modePattern;
+    }
+     
+     System.out.println(totalrule);
     }
 
+    public static String modePattern(String mode){
+     
+        if(mode.equals("TCP")){
+           return "06";
+        }
+        if(mode.equals("HTTP")){
+            return "(.|\\n)*48(.|\\n)54(.|\\n)54(.|\\n)50(.|\\n)2f(.|\\n)31(.|\\n)2e(.|\\n)31";
+        }
+        return "";
+    }
+
+    public static String mode(String input){
+        String match = RegexSearch.match(input,Patterns.MODE.getText());
+        if(match == "TCP"){
+           return "TCP";
+        }
+        if(match == "HTTP"){
+            return "HTTP";
+        }
+        return match;
+    }
 
     public static String sourcePortPattern(String input){
         String match = RegexSearch.match(input,Patterns.SRCPORT.getText());
@@ -51,14 +85,38 @@ public class Rulegenerator {
         }        
 
         match = Converter.convertPortToHexRule(match); 
-        if(match.length()>2){
+
+        while(match.length()<4){
+            match = "0"+match;
+        }
+        
         String frstHalf= match.substring(0,2);
         String secHalf = match.substring(2);
         match = frstHalf+" "+secHalf;
-    }
+    
         return "(.|\\n)*"+match;
     }
 
+    public static String destPortPattern(String input){
+        String match = RegexSearch.match(input,Patterns.DSTPORT.getText());
+
+        if(match.equals("")){
+        return "(.|\\n)*..";
+        }        
+
+        match = Converter.convertPortToHexRule(match); 
+
+        while(match.length()<4){
+            match = "0"+match;
+        }
+
+        String frstHalf= match.substring(0,2);
+        String secHalf = match.substring(2);
+      
+        match = frstHalf+" "+secHalf;
+    
+        return "(.|\\n)*"+match;
+    }
 
     public static String sourceIpPattern(String input){   
 

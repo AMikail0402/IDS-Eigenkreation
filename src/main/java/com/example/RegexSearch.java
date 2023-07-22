@@ -26,8 +26,15 @@ public class RegexSearch{
         String match;
 
         if(matcher.find()){
+            if(matcher.groupCount()>0){
             match = matcher.group(1);
             return match;
+        }
+            else{
+                match = matcher.group(0);
+                return match;
+            }
+           
         }
     
        
