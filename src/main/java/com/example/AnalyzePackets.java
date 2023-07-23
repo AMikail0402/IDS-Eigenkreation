@@ -52,11 +52,8 @@ public static void analyze(String rule) throws PcapNativeException, NotOpenExcep
                matcher.find();
                       
                  String srcAddr = matcher.group(1);
-                
                  String dstAddr = matcher.group(2);
-               
                  String srcPort = matcher.group(3);
-                 
                  String dstPort = matcher.group(4);
                 
 
