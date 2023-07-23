@@ -49,7 +49,9 @@ public static void analyze(String rule) throws PcapNativeException, NotOpenExcep
             public void gotPacket(Packet packet) {
                 System.out.println("Zeitpunkt: "+handle2.getTimestamp());
                 StringBuilder packetToAn = new StringBuilder();
-                
+                    if(packet.toString().length()>500){
+                        packetToAn.append(packet.toString().substring(0, 400));
+                    }
                     packetToAn.append(packet.toString());
                 
                 String packetMatch = packetToAn.toString();
