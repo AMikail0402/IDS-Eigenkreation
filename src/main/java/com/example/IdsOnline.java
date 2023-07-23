@@ -45,13 +45,14 @@ public class IdsOnline
                 @Override
                 public void gotPacket(Packet packet) {
                     // Print packet information to screen
-                    System.out.println(handle.getTimestamp());
-                    System.out.println(packet.toString());
+                   
                     boolean keyword = RegexSearch.search(packet.toString(),pattern);
 
                      if(keyword == true){
                     // Dump packets to file
                     System.out.println("!!! Match !!!");
+                    System.out.println(handle.getTimestamp());
+                    System.out.println(packet.toString());
                     try {
                         dumper.dump(packet, handle.getTimestamp());
                     } catch (NotOpenException e) {
