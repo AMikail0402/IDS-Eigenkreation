@@ -15,15 +15,15 @@ public class TestRuleGenerator {
             "38 67 f3 ca 00 16 a8 03 18 0d cf f9 67 84 50 10\n" + //
             "03 fe ce ad 00 00";         
 
-    static String httpTestPacket = "02 00 00 00 45 00 02 87 2e a0 40 00 80 06 00 00\n" + //
-            "c0 a8 b2 8d c0 a8 b2 8d f2 76 00 50 dc 05 82 a2\n" + //
-            "6d 03 15 1b 50 18 20 fa 36 7b 00 00 47 45 54 20\n" + //
-            "2f 64 61 73 68 62 6f 61 72 64 2f 20 48 54 54 50\n" + //
-            "2f 31 2e 31 0d 0a 48 6f 73 74 3a 20 31 39 32 2e";
+    static String httpTestPacket = "08 00 27 f5 94 77 08 5b d6 07 f1 57 08 00 45 00\n"+
+    "02 79 e2 95 40 00 80 06 2f ca c0 a8 b2 8d c0 a8\n"+
+    "b2 40 c8 a6 00 50 1e 3a 06 42 c3 f5 a9 54 50 18\n"+
+    "10 01 d4 9d 00 00 47 45 54 20 2f 20 48 54 54 50\n"+
+    "2f 31 2e 31 0d 0a 48 6f 73 74 3a 20 31 39 32 2e";
     
     static String testTcpRule = "TCP source-ip 192.168.56.1 dest-ip 192.168.56.103 source-port 62410 dest-port 22";
 
-    static String testHttpRule = "HTTP source-ip 192.168.178.141 dest-ip 192.168.178.141 source-port 62070 dest-port 80";        
+    static String testHttpRule = "HTTP source-ip any dest-ip any source-port any dest-port 80";        
 
     public static void main(String[] args) throws FileNotFoundException{
 
@@ -46,23 +46,24 @@ public class TestRuleGenerator {
         else{
             System.out.println("Erster Test ist fehlgeschlagen");
         }
-
+        System.out.println(matcher1.group(1));
         System.out.println("\n/////////////////////////          ///////////////////////////////");
 
         System.out.println("///////////////////////// TEST - 2 ///////////////////////////////\n");
         String httpPattern = Rulegenerator.totalRule(testHttpRule);
         System.out.println(httpPattern);
         Pattern pattern2 = Pattern.compile(httpPattern);
-       
+       System.out.println(httpTestPacket);
         Matcher matcher2 = pattern2.matcher(httpTestPacket);
       
-
+        
         if(matcher2.find()){
             System.out.println("Zweiter Test war erfolgreich");
         }
         else{
             System.out.println("Zweiter Test ist fehlgeschlagen");
         }
+        System.out.println(matcher2.group(1));
 
         System.out.println("\n/////////////////////////          ///////////////////////////////\n");
         

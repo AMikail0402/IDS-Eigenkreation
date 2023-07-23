@@ -48,9 +48,14 @@ public static void analyze(String rule) throws PcapNativeException, NotOpenExcep
             @Override
             public void gotPacket(Packet packet) {
                 System.out.println("Zeitpunkt: "+handle2.getTimestamp());
-                Matcher matcher = pattern.matcher(packet.toString());
-               matcher.find();
-                      
+                StringBuilder packetToAn = new StringBuilder();
+                
+                    packetToAn.append(packet.toString());
+                
+                String packetMatch = packetToAn.toString();
+                Matcher matcher = pattern.matcher(packetMatch);
+                 matcher.find();
+               
                  String srcAddr = matcher.group(1);
                  String dstAddr = matcher.group(2);
                  String srcPort = matcher.group(3);
@@ -61,10 +66,7 @@ public static void analyze(String rule) throws PcapNativeException, NotOpenExcep
                 System.out.println("Ziel-Adresse: "+IpExtractor.hexToIp(dstAddr));
                 System.out.println("Ursprungsport: "+Converter.hextoDec(srcPort));
                 System.out.println("Zielport: "+Converter.hextoDec(dstPort));
-
-                
-               
-                System.out.println(packet);
+                System.out.println(packetMatch);
               
             }
         };
