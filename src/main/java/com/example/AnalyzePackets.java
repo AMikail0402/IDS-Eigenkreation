@@ -47,29 +47,30 @@ public static void analyze(String rule) throws PcapNativeException, NotOpenExcep
      PacketListener listener = new PacketListener() {
             @Override
             public void gotPacket(Packet packet) {
-                System.out.println("Zeitpunkt: "+handle2.getTimestamp());
+               
                 StringBuilder packetToAn = new StringBuilder();
                     if(packet.toString().length()>500){
                         packetToAn.append(packet.toString().substring(0, 400));
                     }
-                    packetToAn.append(packet.toString());
+                    else{
+                    packetToAn.append(packet.toString());}
                 
                 String packetMatch = packetToAn.toString();
                 Matcher matcher = pattern.matcher(packetMatch);
-                 matcher.find();
+                 if(matcher.find()){
                
                  String srcAddr = matcher.group(1);
                  String dstAddr = matcher.group(2);
                  String srcPort = matcher.group(3);
                  String dstPort = matcher.group(4);
                 
-
+                 System.out.println("Zeitpunkt: "+handle2.getTimestamp());        
                 System.out.println("Ursprungs-Adresse: "+IpExtractor.hexToIp(srcAddr));
                 System.out.println("Ziel-Adresse: "+IpExtractor.hexToIp(dstAddr));
                 System.out.println("Ursprungsport: "+Converter.hextoDec(srcPort));
                 System.out.println("Zielport: "+Converter.hextoDec(dstPort));
                 System.out.println(packetMatch);
-              
+                 }
             }
         };
         long startTime = System.currentTimeMillis();
