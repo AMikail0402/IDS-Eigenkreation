@@ -21,7 +21,7 @@ public class AnalyzePackets {
 
 public static void analyze(String rule) throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException {
     PcapHandle handle = null;
-    final  Pattern pattern = Pattern.compile("06(?:.|\\n){7}((?:.|\\n){12})((?:.|\\n){12})((?:.|\\n){6})((?:.|\\n){6})");
+    final  Pattern pattern = Pattern.compile(Rulegenerator.totalRule(rule));
     System.out.println(pattern);
     
     Scanner myScanner = new Scanner(System.in);
@@ -49,14 +49,9 @@ public static void analyze(String rule) throws PcapNativeException, NotOpenExcep
             public void gotPacket(Packet packet) {
                 System.out.println("Zeitpunkt: "+handle2.getTimestamp());
                 Matcher matcher = pattern.matcher(packet.toString());
-               
-                int i = 0;
-                while(matcher.find()){
-                    i++;
-                  
-                    if(i==1){
-                       
-                 String srcAddr =    matcher.group(1);
+                 matcher.find();
+                      
+                 String srcAddr = matcher.group(1);
                  String dstAddr = matcher.group(2);
                  String srcPort = matcher.group(3);
                  String dstPort = matcher.group(4);
@@ -65,8 +60,9 @@ public static void analyze(String rule) throws PcapNativeException, NotOpenExcep
                 System.out.println("Ziel-Adresse: "+IpExtractor.hexToIp(dstAddr));
                 System.out.println("Ursprungsport: "+Converter.hextoDec(srcPort));
                 System.out.println("Zielport: "+Converter.hextoDec(dstPort));
+
                 
-                }}
+               
                 System.out.println(packet);
               
             }
