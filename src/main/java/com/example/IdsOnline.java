@@ -31,6 +31,7 @@ public class IdsOnline
             }
 
             final String pattern = Rulegenerator.totalRule(rule);
+            System.out.println("Mustere"+pattern);
          
             final PcapHandle handle;
             // Open the Device and get a handle

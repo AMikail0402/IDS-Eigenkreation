@@ -34,7 +34,7 @@ public class Main {
     }
    
     else if(answer.equals("analysis")){
-        AnalyzePackets.analyze();
+        AnalyzePackets.analyze(customRule);
     }
    
     }

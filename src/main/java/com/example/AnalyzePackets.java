@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.pcap4j.core.NotOpenException;
 import org.pcap4j.core.PacketListener;
@@ -17,9 +19,10 @@ import org.pcap4j.packet.Packet;
 
 public class AnalyzePackets {
 
-public static void analyze() throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException {
+public static void analyze(String rule) throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException {
     PcapHandle handle = null;
-
+    final  Pattern pattern = Pattern.compile("06(?:.|\\n){7}((?:.|\\n){12})((?:.|\\n){12})((?:.|\\n){6})((?:.|\\n){6})");
+    System.out.println(pattern);
     
     Scanner myScanner = new Scanner(System.in);
     System.out.println("Offline(off) oder Online(on) Ergebnisse ?");
@@ -45,10 +48,25 @@ public static void analyze() throws PcapNativeException, NotOpenException, Inter
             @Override
             public void gotPacket(Packet packet) {
                 System.out.println("Zeitpunkt: "+handle2.getTimestamp());
-                System.out.println("Ursprungs-Adresse: "+IpExtractor.extractSource(packet.toString().substring(33)));
-                System.out.println("Ziel-Adresse: "+IpExtractor.extractDest(packet.toString().substring(33)));
-                System.out.println("Ursprungsport: "+IpExtractor.extractSrcPort(packet.toString().substring(33)));
-                System.out.println("Zielport: "+IpExtractor.extractDstPort(packet.toString().substring(33)));
+                Matcher matcher = pattern.matcher(packet.toString());
+               
+                int i = 0;
+                while(matcher.find()){
+                    i++;
+                  
+                    if(i==1){
+                       
+                 String srcAddr =    matcher.group(1);
+                 String dstAddr = matcher.group(2);
+                 String srcPort = matcher.group(3);
+                 String dstPort = matcher.group(4);
+
+                System.out.println("Ursprungs-Adresse: "+IpExtractor.hexToIp(srcAddr));
+                System.out.println("Ziel-Adresse: "+IpExtractor.hexToIp(dstAddr));
+                System.out.println("Ursprungsport: "+Converter.hextoDec(srcPort));
+                System.out.println("Zielport: "+Converter.hextoDec(dstPort));
+                
+                }}
                 System.out.println(packet);
               
             }

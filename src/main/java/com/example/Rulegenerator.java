@@ -34,7 +34,7 @@ public class Rulegenerator {
 
     else if(mode.equals("HTTP")){    
 
-     totalrule = "06(.|\\n){7}"+srcIp+dstIp+srcPort+dstPort+modePattern;
+     totalrule = "06(?:.|\\n){7}"+srcIp+dstIp+srcPort+dstPort+modePattern;
      return totalrule;
 
     }
@@ -49,10 +49,10 @@ public class Rulegenerator {
     public static String modePattern(String mode){
      
         if(mode.equals("TCP")){
-           return "06(.|\\n){7}";
+           return "06(?:.|\\n){7}";
         }
         if(mode.equals("HTTP")){
-            return "(.|\\n)*48(.|\\n)54(.|\\n)54(.|\\n)50(.|\\n)2f(.|\\n)31(.|\\n)2e(.|\\n)31";
+            return "(?:.|\\n)*48(?:.|\\n)54(?:.|\\n)54(?:.|\\n)50(?:.|\\n)2f(?:.|\\n)31(?:.|\\n)2e(?:.|\\n)31";
         }
         return "";
     }
@@ -72,7 +72,7 @@ public class Rulegenerator {
         String match = RegexSearch.match(input,Patterns.SRCPORT.getText());
 
         if(match.equals("")){
-        return "((.|\\n){6})";
+        return "((?:.|\\n){6})";
         }        
 
         match = Converter.convertPortToHexRule(match); 
@@ -92,7 +92,7 @@ public class Rulegenerator {
         String match = RegexSearch.match(input,Patterns.DSTPORT.getText());
 
         if(match.equals("")){
-        return "((.|\\n){6})";
+        return "((?:.|\\n){6})";
         }        
 
         match = Converter.convertPortToHexRule(match); 
@@ -114,7 +114,7 @@ public class Rulegenerator {
     String match = RegexSearch.match(input,Patterns.SRCIP.getText());
   
     if(match.equals("")){
-        return "((.|\\n){12})";
+        return "((?:.|\\n){12})";
     }
     match = Converter.convertIpToHexRule(match); 
     
@@ -125,7 +125,7 @@ public class Rulegenerator {
      String match = RegexSearch.match(input,Patterns.DSTIP.getText());
      
      if(match.equals("")){
-        return "((.|\\n){12})";
+        return "((?:.|\\n){12})";
     }
      match = Converter.convertIpToHexRule(match); 
 
