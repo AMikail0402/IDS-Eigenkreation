@@ -11,9 +11,7 @@ import org.pcap4j.core.PcapNativeException;
 
 public class Main {
     public static void main(String[] args) throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException{
-        BasicConfigurator.configure();
-        
-        userLoop(0);
+           userLoop(0);
     }
     public static void userLoop(int num) throws PcapNativeException, NotOpenException, InterruptedException, FileNotFoundException{
         File file = new File("rules.conf");

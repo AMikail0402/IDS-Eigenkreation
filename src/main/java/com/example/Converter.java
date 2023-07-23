@@ -5,6 +5,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Converter {
+
+    public static void main(String[] args){
+
+                System.out.println(hextoDec(" fe bc"));
+
+                
+    }
     
 
     public static String convertIpToHexRule(String ip){
@@ -53,8 +60,9 @@ public class Converter {
     }
 
     public static String hextoDec(String hex){
-        int sum =0 ;
-        sum = Integer.parseInt(hex,16);
+        String res = hex.replaceAll("\\s","");
+        int sum =0;
+        sum = Integer.parseInt(res,16);
         String sumString =  Integer.toString(sum);
         return sumString;
     }

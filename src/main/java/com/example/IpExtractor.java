@@ -2,11 +2,9 @@ package com.example;
 public class IpExtractor{
 
     public static void main(String[] args){
-        String hex = "08 00 27 14 13 e9 0a 00 27 00 00 0b 08 00 45 00 00 34 e5 9f 40 00 80 06 23 6b c0 a8 38 01 c0 a8 38 67 f2 7a 00 16 a1 09 bf ab 00 00 00 00 80 02 fa f0 2f 20 00 00 02 04 05 b4 01 03 03 08 01 01 04 02";
-        String exampleSrcPort = extractSrcPort(hex);
-        String exampleDstPort = extractDstPort(hex);
-        System.out.println("Quellpoert "+ exampleSrcPort);
-        System.out.println("Zielport "+ exampleDstPort);
+      String ip  = "c0 a8 b2 38";
+      String res =  hexToIp(ip);
+        System.out.println(res);
        
     }
 
@@ -37,9 +35,9 @@ public class IpExtractor{
     }
     public static String hexToIp(String hex){
          String ip= "";
-
-    for (int j = 0; j < hex.length(); j+=2) {
-        String sub = hex.substring(j, j+2);
+          String ipnum = hex.replaceAll(" ","");  
+    for (int j = 0; j < ipnum.length(); j+=2) {
+        String sub = ipnum.substring(j, j+2);
         int num = Integer.parseInt(sub, 16);
         ip += num+".";
     }
