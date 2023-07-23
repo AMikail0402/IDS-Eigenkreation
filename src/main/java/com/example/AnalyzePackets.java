@@ -70,6 +70,8 @@ public static void analyze(String rule) throws PcapNativeException, NotOpenExcep
                 System.out.println("Ursprungsport: "+Converter.hextoDec(srcPort));
                 System.out.println("Zielport: "+Converter.hextoDec(dstPort));
                 System.out.println(packetMatch);
+                System.out.println();
+                System.out.println();
                  }
             }
         };
