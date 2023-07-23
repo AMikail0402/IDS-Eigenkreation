@@ -118,7 +118,7 @@ public class Rulegenerator {
     }
     match = Converter.convertIpToHexRule(match); 
     
-     return match+" ";
+     return "("+match+") ";
     }
 
     public static String destIpPattern(String input){   
