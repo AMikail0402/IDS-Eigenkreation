@@ -21,7 +21,7 @@ Ausführung:
 
 Schritte:
 
-1. Im terminal "java -jar IDS-Eigenkreation" eingeben
+1. Im terminal "java -jar IDS-Eigenkreation.jar" eingeben
 
 2. Online/Offline Filtering
 
