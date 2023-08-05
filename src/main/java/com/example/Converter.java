@@ -6,13 +6,7 @@ import java.util.regex.Pattern;
 
 public class Converter {
 
-    public static void main(String[] args){
-
-                System.out.println(hextoDec(" fe bc"));
-
-                
-    }
-    
+   
 
     public static String convertIpToHexRule(String ip){
         String numPattern = "(\\d{1,3}).(\\d{1,3}).(\\d{1,3}).(\\d{1,3})";
