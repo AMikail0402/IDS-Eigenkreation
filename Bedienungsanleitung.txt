@@ -15,6 +15,9 @@ Dateistruktur:
 |Ordner
 	|IDS-Eigenkreation.jar
 	|rules.conf
+	|test.pcap
+	|(suspicious.pcap)
+	|(suspicious_online.pcap)
 
 
 Ausführung:
@@ -31,11 +34,15 @@ Schritte:
 		--> Filtering mit Strg+c abbrechen, und Programm für Analyse neustarten
 
 2.2 Offline-Filtering:
+	- ! Damit eine erfolgreiche Offline-Filterung möglich ist, muss die Ereignisaufzeichnung in test.pcap umbenannt werden !
 	- Aufgezeichneter Verkehr muss test.pcap heißen -> Danach kann das Programm ausgeführt werden
 		--> verdächtige Pakete landen in suspicious-pcap
 		--> Filtering mit Strg+c abbrechen, und Programm für Analyse neustarten
+	
 3 Analyse:
+	! Analysen können erst nach Filterungsvorgängen stattfinden, da die suspicious(_online).pcap vorhanden sein muss !
 	- Verkehr kann erst nach einer Filtering Aktion analysiert werden
 		--> Zweck dieser Funktion ist das Nachvollziehen der Herkunft der Gefahr
 	- Die Analyse bietet einem die Möglichkeit den Verkehr nach der Regel in der Rules.conf zu filtern, und 
           Daten wie Ursprungs- und Zieladressen nachzuvollziehen
+	- Bei der Online Analyse wird suspicious_online.pcap untersucht
