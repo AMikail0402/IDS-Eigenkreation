@@ -50,9 +50,9 @@ public class IdsOnline
 
                      if(keyword == true){
                     // Dump packets to file
-                    /*  System.out.println("!!! Match !!!");
+                    System.out.println("!!! Match !!!");
                     System.out.println(handle.getTimestamp());
-                    System.out.println(packet.toString());*/
+                    System.out.println(packet.toString());
                     try {
                         dumper.dump(packet, handle.getTimestamp());
                     } catch (NotOpenException e) {

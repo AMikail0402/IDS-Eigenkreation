@@ -52,6 +52,7 @@ public class TestRuleGenerator {
         System.out.println("///////////////////////// TEST - 2 ///////////////////////////////\n");
         String httpPattern = Rulegenerator.totalRule(testHttpRule);
         System.out.println(httpPattern);
+        System.out.println(httpPattern);
         Pattern pattern2 = Pattern.compile(httpPattern);
        System.out.println(httpTestPacket);
         Matcher matcher2 = pattern2.matcher(httpTestPacket);

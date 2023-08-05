@@ -1,0 +1,41 @@
+Das Programm muss im selben Pfad gespeichert werden wie rules.conf
+! Es kann nur nach einer Regel gefiltert werden !
+
+
+Regelsyntax:
+
+TCP/HTTP source-ip any/Adresse dest-ip any/Adresse source-port any/port dest-port any/port
+
+Beispielsregeln:
+	
+	- TCP source-ip 192.168.56.1 dest-ip 192.168.56.103 source-port 62410 dest-port 22
+        - HTTP source-ip 192.168.178.141 dest-ip 192.168.178.141 source-port 62070 dest-port 80
+
+Dateistruktur: 
+|Ordner
+	|IDS-Eigenkreation.jar
+	|rules.conf
+
+
+Ausführung:
+
+Schritte:
+
+1. Im terminal "java -jar IDS-Eigenkreation" eingeben
+
+2. Online/Offline Filtering
+
+2.1 Online-Filtering:
+	- gewünschte Netzwerkkarte angeben -> Enter drücken
+		--> verdächtige Pakete landen in der suspicious_online.pcap
+		--> Filtering mit Strg+c abbrechen, und Programm für Analyse neustarten
+
+2.2 Offline-Filtering:
+	- Aufgezeichneter Verkehr muss test.pcap heißen -> Danach kann das Programm ausgeführt werden
+		--> verdächtige Pakete landen in suspicious-pcap
+		--> Filtering mit Strg+c abbrechen, und Programm für Analyse neustarten
+3 Analyse:
+	- Verkehr kann erst nach einer Filtering Aktion analysiert werden
+		--> Zweck dieser Funktion ist das Nachvollziehen der Herkunft der Gefahr
+	- Die Analyse bietet einem die Möglichkeit den Verkehr nach der Regel in der Rules.conf zu filtern, und 
+          Daten wie Ursprungs- und Zieladressen nachzuvollziehen
