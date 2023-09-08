@@ -38,6 +38,7 @@ public class TestRuleGenerator {
         System.out.println(tcpPattern);
       
         Matcher matcher1 = pattern1.matcher(tcpTestPacket);
+        System.out.println(tcpTestPacket);
        
 
         if(matcher1.find()){
