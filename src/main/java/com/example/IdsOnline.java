@@ -17,6 +17,8 @@ import org.pcap4j.core.PcapStat;
 import org.pcap4j.packet.Packet;
 import org.pcap4j.util.NifSelector;
 
+import com.example.api.SendEntry;
+
 
 public class IdsOnline
 {
@@ -40,6 +42,10 @@ public class IdsOnline
             handle = device.openLive(snapshotLength, PromiscuousMode.PROMISCUOUS, readTimeout);
             final PcapDumper dumper = handle.dumpOpen("suspicious_online.pcap");
 
+                
+            final String cve ="2023-1810";
+            final String msg ="unerlaubter Serverbesuch";
+
             // Create a listener that defines what to do with the received packets
             PacketListener listener = new PacketListener() {
                 @Override
@@ -49,6 +55,12 @@ public class IdsOnline
                     boolean keyword = RegexSearch.search(packet.toString(),pattern);
 
                      if(keyword == true){
+                         try {
+                    SendEntry.sendEntry(cve,msg,handle.getTimestamp().toString());
+                        } catch (IOException e) {
+                   
+                    e.printStackTrace();
+                }  
                     // Dump packets to file
                     System.out.println("!!! Match !!!");
                     System.out.println(handle.getTimestamp());

@@ -1,5 +1,6 @@
 /out.pcap
 /Record02.pcap
+/test.pcap
 /suspicious.pcap
 /suspicious_online.pcap
 .vscode

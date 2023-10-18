@@ -2,6 +2,7 @@ package com;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ import org.pcap4j.packet.Packet;
 
 import com.example.RegexSearch;
 import com.example.Rulegenerator;
+import com.example.api.SendEntry;
 
 public class TestPerformance {
 
@@ -40,7 +42,10 @@ public class TestPerformance {
     }
     final PcapHandle handle2 = handle;
     final PcapDumper dumper = handle.dumpOpen("suspicious.pcap");
-   
+    
+    final String cve ="2023-1810";
+    final String msg ="unerlaubte SSH-Anmeldung";
+
      PacketListener listener = new PacketListener() {
            
             @Override
@@ -49,10 +54,17 @@ public class TestPerformance {
             
                 // Print packet information to screen
                 
-                
+                System.out.println(packet.toString());
                 boolean keyword = RegexSearch.search(packet.toString(),pattern);
                 
                 if(keyword == true){
+                //Send DB Entry
+                try {
+                    SendEntry.sendEntry(cve,msg,handle2.getTimestamp().toString());
+                } catch (IOException e) {
+                   
+                    e.printStackTrace();
+                }    
                 // Dump packets to file 
                 System.out.println("!!! Match !!!");
                 System.out.println(handle2.getTimestamp());
