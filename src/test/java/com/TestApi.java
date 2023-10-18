@@ -8,10 +8,10 @@ import com.example.api.SendEntry;
 
 public class TestApi {
     public static void main(String[] args) throws IOException{
-        apiTest();
+        apiLoadTest();
     }
-    public static void apiTest() throws IOException{
-        for(int i=0;i<150;i++){
+    public static void apiLoadTest() throws IOException{
+        for(int i=0;i<1500;i++){
         String time = new SimpleDateFormat("HH_mm_ss").format(Calendar.getInstance().getTime());
         String timeStamp = ""+time;
         SendEntry.sendEntry("CVE-2023-1237","Server-Zugriff-Test",timeStamp);
